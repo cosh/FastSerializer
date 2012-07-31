@@ -1,6 +1,10 @@
+#region Usings
+
 using System;
 using System.Collections.Specialized;
 using System.Drawing;
+
+#endregion
 
 namespace Framework.Serialization
 {

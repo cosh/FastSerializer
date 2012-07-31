@@ -1,7 +1,10 @@
 #define THROW_IF_NOT_OPTIMIZABLE
 
+#region Usings
+
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Diagnostics;
 using System.IO;
@@ -9,7 +12,8 @@ using System.Reflection;
 using System.Runtime.Serialization.Formatters;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
-using System.Collections.Generic;
+
+#endregion
 
 // ReSharper disable PossibleInvalidCastException
 // ReSharper disable PossibleNullReferenceException

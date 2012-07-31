@@ -1,4 +1,8 @@
-﻿using System.IO;
+﻿#region Usings
+
+using System.IO;
+
+#endregion
 
 namespace Framework.Serialization
 {

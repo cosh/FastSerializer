@@ -1,10 +1,14 @@
+#region Usings
+
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Diagnostics;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
-using System.Collections.Generic;
+
+#endregion
 
 namespace Framework.Serialization
 {

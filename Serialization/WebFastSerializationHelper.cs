@@ -1,3 +1,5 @@
+#region Usings
+
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -5,6 +7,8 @@ using System.Collections.Specialized;
 using System.Reflection;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+
+#endregion
 
 namespace Framework.Serialization
 {
