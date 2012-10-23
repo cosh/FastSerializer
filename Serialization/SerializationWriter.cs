@@ -356,55 +356,11 @@ namespace Framework.Serialization
 			}
 			else if (value is string)
 			{
-				WriteOptimized((string) value);
+				Write((string) value);
 			}
 			else if (value is Int32)
 			{
-				var int32Value = (int) value;
-
-				switch (int32Value)
-				{
-					case 0:
-						WriteTypeCode(SerializedType.ZeroInt32Type);
-						return;
-
-					case -1:
-						WriteTypeCode(SerializedType.MinusOneInt32Type);
-						return;
-
-					case 1:
-						WriteTypeCode(SerializedType.OneInt32Type);
-						return;
-
-					default:
-						if (optimizeForSize)
-						{
-							if (int32Value > 0)
-							{
-								if (int32Value <= HighestOptimizable32BitValue) 
-								{
-									WriteTypeCode(SerializedType.OptimizedInt32Type);
-									Write7BitEncodedSigned32BitValue(int32Value);
-									return;
-								}
-							}
-							else
-							{
-								var positiveInt32Value = -(int32Value + 1);
-
-								if (positiveInt32Value <= HighestOptimizable32BitValue)
-								{
-									WriteTypeCode(SerializedType.OptimizedInt32NegativeType);
-									Write7BitEncodedSigned32BitValue(positiveInt32Value);
-									return;
-								}
-							}
-						}
-
-						WriteTypeCode(SerializedType.Int32Type);
-						Write(int32Value);
-						return;
-				}
+			    Write((int) value);
 			}
 			else if (value == DBNull.Value)
 			{
@@ -416,409 +372,95 @@ namespace Framework.Serialization
 			}
 			else if (value is Decimal)
 			{
-				var decimalValue = (Decimal) value;
-
-				if (decimalValue == 0)
-				{
-					WriteTypeCode(SerializedType.ZeroDecimalType);
-				}
-				else if (decimalValue == 1)
-				{
-					WriteTypeCode(SerializedType.OneDecimalType);
-				}
-				else
-				{
-					WriteTypeCode(SerializedType.DecimalType);
-					WriteOptimized(decimalValue);
-				}
+			    Write((Decimal) value);
 			}
 			else if (value is DateTime)
 			{
-				var dateTimeValue = (DateTime) value;
-
-				if (dateTimeValue == DateTime.MinValue)
-				{
-					WriteTypeCode(SerializedType.MinDateTimeType);
-				}
-				else if (dateTimeValue == DateTime.MaxValue)
-				{
-					WriteTypeCode(SerializedType.MaxDateTimeType);
-				}
-				else if (optimizeForSize && ((dateTimeValue.Ticks % TimeSpan.TicksPerMillisecond) == 0))
-				{
-					WriteTypeCode(SerializedType.OptimizedDateTimeType);
-					WriteOptimized(dateTimeValue);
-				}
-				else
-				{
-					WriteTypeCode(SerializedType.DateTimeType);
-					Write(dateTimeValue);
-				}
+                Write((DateTime)value);
 			}
 			else if (value is Double)
 			{
-				var doubleValue = (Double) value;
-
-				if (doubleValue == 0)
-				{
-					WriteTypeCode(SerializedType.ZeroDoubleType);
-				}
-				else if (doubleValue == 1)
-				{
-					WriteTypeCode(SerializedType.OneDoubleType);
-				}
-				else
-				{
-					WriteTypeCode(SerializedType.DoubleType);
-					Write(doubleValue);
-				}
+                Write((Double) value);
 			}
 			else if (value is Single)
 			{
-				var singleValue = (Single) value;
-
-				if (singleValue == 0)
-				{
-					WriteTypeCode(SerializedType.ZeroSingleType);
-				}
-				else if (singleValue == 1)
-				{
-					WriteTypeCode(SerializedType.OneSingleType);
-				}
-				else
-				{
-					WriteTypeCode(SerializedType.SingleType);
-					Write(singleValue);
-				}
+                Write((Single)value);
 			}
 			else if (value is Int16)
 			{
-				var int16Value = (Int16) value;
-
-				switch (int16Value)
-				{
-					case 0:
-						WriteTypeCode(SerializedType.ZeroInt16Type);
-						return;
-
-					case -1:
-						WriteTypeCode(SerializedType.MinusOneInt16Type);
-						return;
-
-					case 1:
-						WriteTypeCode(SerializedType.OneInt16Type);
-						return;
-
-					default:
-						if (optimizeForSize)
-						{
-							if (int16Value > 0)
-							{
-								if (int16Value <= HighestOptimizable16BitValue) 
-								{
-									WriteTypeCode(SerializedType.OptimizedInt16Type);
-									Write7BitEncodedSigned32BitValue(int16Value);
-									return;
-								}
-							}
-							else
-							{
-								var positiveInt16Value = (-(int16Value + 1));
-
-								if (positiveInt16Value <= HighestOptimizable16BitValue) 
-								{
-									WriteTypeCode(SerializedType.OptimizedInt16NegativeType);
-									Write7BitEncodedSigned32BitValue(positiveInt16Value);
-									return;
-								}
-							}
-						}
-
-						WriteTypeCode(SerializedType.Int16Type);
-						Write(int16Value);
-						return;
-				}
+                Write((Int16)value);
 			}
-
 			else if (value is Guid)
 			{
-				var guidValue = (Guid) value;
-
-				if (guidValue == Guid.Empty)
-				{
-					WriteTypeCode(SerializedType.EmptyGuidType);
-				}
-				else
-				{
-					WriteTypeCode(SerializedType.GuidType);
-					Write(guidValue);
-				}
-
-				return;
+                Write((Guid)value);
 			}
-
 			else if (value is Int64)
 			{
-				var int64Value = (Int64) value;
-
-				switch (int64Value)
-				{
-					case 0:
-						WriteTypeCode(SerializedType.ZeroInt64Type);
-						return;
-
-					case -1:
-						WriteTypeCode(SerializedType.MinusOneInt64Type);
-						return;
-
-					case 1:
-						WriteTypeCode(SerializedType.OneInt64Type);
-						return;
-
-					default:
-						if (optimizeForSize)
-						{
-							if (int64Value > 0)
-							{
-								if (int64Value <= HighestOptimizable64BitValue)
-								{
-									WriteTypeCode(SerializedType.OptimizedInt64Type);
-									Write7BitEncodedSigned64BitValue(int64Value);
-									return;
-								}
-							}
-							else
-							{
-								var positiveInt64Value = -(int64Value + 1);
-
-								if (positiveInt64Value <= HighestOptimizable64BitValue)
-								{
-									WriteTypeCode(SerializedType.OptimizedInt64NegativeType);
-									Write7BitEncodedSigned64BitValue(positiveInt64Value);
-									return;
-								}
-							}
-						}
-
-						WriteTypeCode(SerializedType.Int64Type);
-						Write(int64Value);
-						return;
-				}
+                Write((Int64)value);
 			}
-
 			else if (value is Byte)
 			{
-				var byteValue = (Byte) value;
-
-				switch (byteValue)
-				{
-					case 0:
-						WriteTypeCode(SerializedType.ZeroByteType);
-						return;
-
-					case 1:
-						WriteTypeCode(SerializedType.OneByteType);
-						return;
-
-					default:
-						WriteTypeCode(SerializedType.ByteType);
-						Write(byteValue);
-						return;
-				}
+                Write((Byte)value);
 			}
 			else if (value is Char)
 			{
-				var charValue = (Char) value;
-
-				switch (charValue)
-				{
-					case (Char) 0:
-						WriteTypeCode(SerializedType.ZeroCharType);
-						return;
-
-					case (Char) 1:
-						WriteTypeCode(SerializedType.OneCharType);
-						return;
-
-					default:
-						WriteTypeCode(SerializedType.CharType);
-						Write(charValue);
-						return;
-				}
+                Write((Char)value);
 			}
 			else if (value is SByte)
 			{
-				var sbyteValue = (SByte) value;
-
-				switch (sbyteValue)
-				{
-					case 0:
-						WriteTypeCode(SerializedType.ZeroSByteType);
-						return;
-
-					case 1:
-						WriteTypeCode(SerializedType.OneSByteType);
-						return;
-
-					default:
-						WriteTypeCode(SerializedType.SByteType);
-						Write(sbyteValue);
-						return;
-				}
+                Write((SByte)value);
 			}
 			else if (value is UInt32)
 			{
-				var uint32Value = (UInt32) value;
-
-				switch (uint32Value)
-				{
-					case 0:
-						WriteTypeCode(SerializedType.ZeroUInt32Type);
-						return;
-
-					case 1:
-						WriteTypeCode(SerializedType.OneUInt32Type);
-						return;
-
-					default:
-						if (optimizeForSize && uint32Value <= HighestOptimizable32BitValue)
-						{
-							WriteTypeCode(SerializedType.OptimizedUInt32Type);
-							Write7BitEncodedUnsigned32BitValue(uint32Value);
-						}
-						else
-						{
-							WriteTypeCode(SerializedType.UInt32Type);
-							Write(uint32Value);
-						}
-						return;
-				}
+                Write((UInt32)value);
 			}
-
 			else if (value is UInt16)
 			{
-				var uint16Value = (UInt16) value;
-
-				switch (uint16Value)
-				{
-					case 0:
-						WriteTypeCode(SerializedType.ZeroUInt16Type);
-						return;
-
-					case 1:
-						WriteTypeCode(SerializedType.OneUInt16Type);
-						return;
-
-					default:
-						if (optimizeForSize && uint16Value <= HighestOptimizable16BitValue)
-						{
-							WriteTypeCode(SerializedType.OptimizedUInt16Type);
-							Write7BitEncodedUnsigned32BitValue(uint16Value);
-						}
-						else
-						{
-							WriteTypeCode(SerializedType.UInt16Type);
-							Write(uint16Value);
-						}
-
-						return;
-				}
+                Write((UInt16)value);
 			}
 			else if (value is UInt64)
 			{
-				var uint64Value = (UInt64) value;
-
-				switch (uint64Value)
-				{
-					case 0:
-						WriteTypeCode(SerializedType.ZeroUInt64Type);
-						return;
-
-					case 1:
-						WriteTypeCode(SerializedType.OneUInt64Type);
-						return;
-
-					default:
-						if (optimizeForSize && uint64Value <= HighestOptimizable64BitValue)
-						{
-							WriteTypeCode(SerializedType.OptimizedUInt64Type);
-							WriteOptimized(uint64Value);
-						}
-						else
-						{
-							WriteTypeCode(SerializedType.UInt64Type);
-							Write(uint64Value);
-						}
-
-						return;
-				}
+                Write((UInt64)value);
 			}
-
 			else if (value is TimeSpan)
 			{
-				var timeSpanValue = (TimeSpan) value;
-
-				if (timeSpanValue == TimeSpan.Zero)
-				{
-					WriteTypeCode(SerializedType.ZeroTimeSpanType);
-				}
-				else if (optimizeForSize && (timeSpanValue.Ticks % TimeSpan.TicksPerMillisecond) == 0)
-				{
-					WriteTypeCode(SerializedType.OptimizedTimeSpanType);
-					WriteOptimized(timeSpanValue);
-				}
-				else
-				{
-					WriteTypeCode(SerializedType.TimeSpanType);
-					Write(timeSpanValue);
-				}
-
-				return;
+                Write((TimeSpan)value);
 			}
-
 			else if (value is Array)
 			{
 				WriteTypedArray((Array) value, true);
 			}
-
 			else if (value is Type)
 			{
-				WriteTypeCode(SerializedType.TypeType);
-				WriteOptimized((value as Type));
+                WriteOptimized((value as Type));
 			}
-
 			else if (value is BitArray)
 			{
 				WriteTypeCode(SerializedType.BitArrayType);
 				WriteOptimized((BitArray) value);
 			}
-
 			else if (value is BitVector32)
 			{
 				WriteTypeCode(SerializedType.BitVector32Type);
 				Write((BitVector32) value);
 			}
-
 			else if (IsTypeRecreatable(value.GetType()))
 			{
 				WriteTypeCode(SerializedType.OwnedDataSerializableAndRecreatableType);
 				WriteOptimized(value.GetType());
 				Write((IOwnedDataSerializable) value, null);
 			}
-
 			else if (value is SingletonTypeWrapper)
 			{
 				WriteTypeCode(SerializedType.SingleInstanceType);
 
 				WriteStringDirect((value as SingletonTypeWrapper).WrappedType.AssemblyQualifiedName);
 			}
-
 			else if (value is ArrayList)
 			{
 				WriteTypeCode(SerializedType.ArrayListType);
 				WriteOptimized((value as ArrayList));
 			}
-
 			else if (value is Enum) 
 			{
 				var enumType = value.GetType();
@@ -887,7 +529,6 @@ namespace Framework.Serialization
 						return;
 				}
 			}
-
 			else
 			{
 				var valueType = value.GetType();
