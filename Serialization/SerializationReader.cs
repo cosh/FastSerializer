@@ -178,7 +178,7 @@ namespace Framework.Serialization
 		/// <returns>A string value.</returns>
 		public override string ReadString()
 		{
-			return ReadOptimizedString();
+            return base.ReadString();
 		}
 
 		/// <summary>
@@ -1487,12 +1487,13 @@ namespace Framework.Serialization
 		/// <returns>An object instance.</returns>
 		object ProcessObject(SerializedType typeCode)
 		{
-			if (typeCode < SerializedType.NullType) return ReadTokenizedString((int) typeCode);
+			if (typeCode < SerializedType.NullType) return ReadString();
 
 			switch (typeCode)
 			{
 				case SerializedType.NullType: return null;
-				case SerializedType.Int32Type: return ReadInt32();
+                case SerializedType.Int32Type: return ReadInt32();
+                case SerializedType.String: return ReadString();
 				case SerializedType.EmptyStringType: return string.Empty;
 				case SerializedType.BooleanFalseType: return false;
 				case SerializedType.ZeroInt32Type: return 0;

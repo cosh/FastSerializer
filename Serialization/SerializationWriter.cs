@@ -356,10 +356,12 @@ namespace Framework.Serialization
 			}
 			else if (value is string)
 			{
+                WriteTypeCode(SerializedType.String);
 				Write((string) value);
 			}
 			else if (value is Int32)
 			{
+                WriteTypeCode(SerializedType.Int32Type);
 			    Write((int) value);
 			}
 			else if (value == DBNull.Value)
@@ -372,63 +374,77 @@ namespace Framework.Serialization
 			}
 			else if (value is Decimal)
 			{
+                WriteTypeCode(SerializedType.DecimalType);
 			    Write((Decimal) value);
 			}
 			else if (value is DateTime)
 			{
+                WriteTypeCode(SerializedType.DateTimeType);
                 Write((DateTime)value);
 			}
 			else if (value is Double)
 			{
-                Write((Double) value);
+                WriteTypeCode(SerializedType.DoubleType);
+                Write((Double)value);
 			}
 			else if (value is Single)
 			{
+                WriteTypeCode(SerializedType.SingleType);
                 Write((Single)value);
 			}
 			else if (value is Int16)
 			{
+                WriteTypeCode(SerializedType.Int16Type);
                 Write((Int16)value);
 			}
 			else if (value is Guid)
 			{
+                WriteTypeCode(SerializedType.GuidType);
                 Write((Guid)value);
 			}
 			else if (value is Int64)
 			{
+                WriteTypeCode(SerializedType.Int64Type);
                 Write((Int64)value);
 			}
 			else if (value is Byte)
 			{
+                WriteTypeCode(SerializedType.ByteType);
                 Write((Byte)value);
 			}
 			else if (value is Char)
 			{
+                WriteTypeCode(SerializedType.CharType);
                 Write((Char)value);
 			}
 			else if (value is SByte)
 			{
+                WriteTypeCode(SerializedType.SByteType);
                 Write((SByte)value);
 			}
 			else if (value is UInt32)
 			{
+                WriteTypeCode(SerializedType.UInt32Type);
                 Write((UInt32)value);
 			}
 			else if (value is UInt16)
 			{
+                WriteTypeCode(SerializedType.UInt16Type);
                 Write((UInt16)value);
 			}
 			else if (value is UInt64)
 			{
+                WriteTypeCode(SerializedType.UInt64Type);
                 Write((UInt64)value);
 			}
 			else if (value is TimeSpan)
 			{
+                WriteTypeCode(SerializedType.TimeSpanType);
                 Write((TimeSpan)value);
 			}
 			else if (value is Array)
 			{
-				WriteTypedArray((Array) value, true);
+                WriteTypedArray((Array)value, true);
 			}
 			else if (value is Type)
 			{
@@ -546,16 +562,6 @@ namespace Framework.Serialization
 					CreateBinaryFormatter().Serialize(BaseStream, value);
 				}
 			}
-		}
-
-		/// <summary>
-		/// Calls WriteOptimized(string).
-		/// This override to hide base BinaryWriter.Write(string).
-		/// </summary>
-		/// <param name="value">The string to store.</param>
-		public override void Write(string value)
-		{
-			WriteOptimized(value);
 		}
 
 		/// <summary>

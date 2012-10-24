@@ -138,7 +138,7 @@
 
 		SurrogateHandledType,
 		// Placeholders to indicate number of Type Codes remaining
-		Reserved24,
+		String,
 		Reserved23,
 		Reserved22,
 		Reserved21,
