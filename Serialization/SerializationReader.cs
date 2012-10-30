@@ -7,6 +7,7 @@ using System.Collections.Specialized;
 using System.Diagnostics;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
+using System.Text;
 
 #endregion
 
@@ -27,6 +28,8 @@ namespace Framework.Serialization
 		readonly int endPosition;
 		List<string> stringTokenList;
 		List<object> objectTokenList;
+
+        UTF32Encoding _enc;
 
 		#region Debug Related
 		/// <summary>
@@ -73,6 +76,8 @@ namespace Framework.Serialization
 				// Use the correct token table sizes
 				InitializeTokenTables(ReadInt32(), ReadInt32());
 			}
+
+            _enc = new UTF32Encoding();
 		}
 
 		/// <summary>
@@ -102,6 +107,9 @@ namespace Framework.Serialization
 			}
 
 			InitializeTokenTables(stringTokenTablePresize, objectTokenTablePresize);
+
+            _enc = new UTF32Encoding();
+
 		}
 
 		/// <summary>
@@ -178,7 +186,15 @@ namespace Framework.Serialization
 		/// <returns>A string value.</returns>
 		public override string ReadString()
 		{
-            return base.ReadString();
+            var counter = ReadInt32();
+            Byte[] byteArray = new byte[counter];
+
+            for (int i = 0; i < counter; i++)
+            {
+                byteArray[i] = ReadByte();
+            }
+
+            return _enc.GetString(byteArray);
 		}
 
 		/// <summary>
@@ -1487,7 +1503,7 @@ namespace Framework.Serialization
 		/// <returns>An object instance.</returns>
 		object ProcessObject(SerializedType typeCode)
 		{
-			if (typeCode < SerializedType.NullType) return ReadString();
+			//if (typeCode < SerializedType.NullType) return ReadString();
 
 			switch (typeCode)
 			{

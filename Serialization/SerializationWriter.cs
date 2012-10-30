@@ -123,6 +123,8 @@ namespace Framework.Serialization
 		bool optimizeForSize;
 		bool preserveDecimalScale;
 
+        UTF32Encoding _enc;
+
 		#region Type Usage related code (Debug mode only)
 #if DEBUG
 		// type usage member in which counters are stored of all the known types emitted into the output stream. For debugging purposes.
@@ -165,6 +167,7 @@ namespace Framework.Serialization
 		/// </summary>
 		public SerializationWriter(): this(new MemoryStream(DefaultCapacity)) 
 		{
+            
 		}
 
 		/// <summary>
@@ -215,6 +218,9 @@ namespace Framework.Serialization
 			stringLookup = new UniqueStringList();
 			optimizeForSize = DefaultOptimizeForSize;
 			preserveDecimalScale = DefaultPreserveDecimalScale;
+
+            _enc = new UTF32Encoding();
+
 		}
 
 		/// <summary>
@@ -304,6 +310,16 @@ namespace Framework.Serialization
 		{
 			target.SerializeOwnedData(this, context);
 		}
+
+        public override void Write(string value)
+        {
+            var bytes = _enc.GetBytes(value);
+            Write(bytes.Length);
+            foreach (var aByte in bytes)
+            {
+                base.Write(aByte);
+            }
+        }
 
 		/// <summary>
 		/// Stores an object into the stream using the fewest number of bytes possible.
