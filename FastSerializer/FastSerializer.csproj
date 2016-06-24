@@ -11,9 +11,9 @@
     <RootNamespace>FastSerializer</RootNamespace>
     <AssemblyName>FastSerializer</AssemblyName>
     <FileAlignment>512</FileAlignment>
-    <SignAssembly>true</SignAssembly>
+    <SignAssembly>false</SignAssembly>
     <AssemblyOriginatorKeyFile>..\..\Fallen-8\Fallen-8.key</AssemblyOriginatorKeyFile>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile />
     <ReleaseVersion>0.2</ReleaseVersion>
   </PropertyGroup>
