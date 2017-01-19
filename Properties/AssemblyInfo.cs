@@ -35,7 +35,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("RauchEntwicklung")]
 [assembly: AssemblyProduct("FastSerializer")]
-[assembly: AssemblyCopyright("Copyright © Henning Rauch 2011-2015")]
+[assembly: AssemblyCopyright("Copyright © Henning Rauch 2011-2017")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
