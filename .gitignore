@@ -15,4 +15,4 @@ CoreDeveloper.userprefs
 *.sln.docstates
 *.user
 *.userprefs
-package/
+packages/
