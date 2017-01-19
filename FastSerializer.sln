@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FastSerializer", "FastSerializer\FastSerializer.csproj", "{7267AFEB-D3FC-4416-8792-C386A685C86F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FastSerializer.UnitTest", "FastSerializer.UnitTest\FastSerializer.UnitTest.csproj", "{D3994A52-943C-4C5F-A457-BF96F6B74897}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7267AFEB-D3FC-4416-8792-C386A685C86F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7267AFEB-D3FC-4416-8792-C386A685C86F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7267AFEB-D3FC-4416-8792-C386A685C86F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7267AFEB-D3FC-4416-8792-C386A685C86F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D3994A52-943C-4C5F-A457-BF96F6B74897}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D3994A52-943C-4C5F-A457-BF96F6B74897}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D3994A52-943C-4C5F-A457-BF96F6B74897}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D3994A52-943C-4C5F-A457-BF96F6B74897}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
